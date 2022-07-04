@@ -1,0 +1,1 @@
+export { extractDataInterceptor } from "./extractDataInterceptor";
