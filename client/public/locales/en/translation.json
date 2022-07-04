@@ -1,0 +1,18 @@
+{
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "russian": "Russian",
+   
+    "profile": "Profile",
+    "confirm": "Confirm",
+    "actions": "Actions",
+    "amount": "Amount",
+    "details": "Details"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "exit": "Exit"
+  }
+}
