@@ -1,0 +1,65 @@
+# FB TRAFFIC RESOLVER
+![fb-traffic resolver logo](./media/logo.png)
+
+* Logo by [sonieijka](https://github.com/sonieijka)
+* Initial idea for FB Traffic Resolver [pantafive](https://github.com/pantafive)
+
+# About
+FB (frontend and backend) traffic resolver is a simple program that
+(as name suggests) resolves traffic based on the path of requesting url.
+Here's a scheme that explains how does traffic resolver work:
+![if path starts with api resolves to api otherwise to static files](./media/scheme_0.png)
+
+When incoming request gets to resolver, the program compares the path of url in request
+to the path "/api".
+If they are equal then the traffic will be resolved to API otherwise to
+build folder that contains all stuff that is necessary for frontend.
+By the way, we've mentioned "build folder". Actually, it's the product of
+the following command:
+```bash
+npm run build
+```
+Hence, by "build folder" we simply mean built frontend project that is ready
+for production.
+
+To link all the things together you basically need:
+1) Running resolver in Docker container
+2) Build folder copied to the Docker container with resolver
+3) Running backend API in Docker container
+
+Here's another scheme that describes detailed interplay between resolver
+and API:
+![detailed interplay between resolver and API](./media/scheme_1.png)
+
+Traffic will be resolved to API only if path in a request URL matches the
+template `/api*` (see the first scheme). The client on the scheme is a Javascript (js) code
+running in browser.
+Assume that there's a frontend developer Alan that has to get data from API.
+For the route `/locations` in react app he gets data using the url `/api/locations`:
+```js
+fetch(`/api/locations`){
+    ...
+}
+```
+Alan specifies ports 80:80 for Docker container with
+resolver and build folder and runs the whole app with docker-compose.
+As he goes to `http://localhost` he gets html, css, js code and other 
+files from build folder.
+
+Then, Alan goes to
+`http://localhost/locations` and there he sees static files but the js code will call
+`/api/locations` and the final url will be `http://localhost/api/locations` this request goes to 
+traffic resolver that resolves the request to the container with backend API.
+Backend API handles the request: retrieving locations from db, for instance.
+And then, sends response back to the traffic resolver. After this, traffic resolver sends
+locations to the client (js code in browser), so there will be a data about locations on frontend.
+
+## Demo
+See the demo of the workflow described above.
+[demo with the workflow](https://github.com/GonnaFlyMethod/fb-traffic-resolver-demo)
+
+
+## License
+This project is licensed under the MIT License - see the 
+[LICENSE.md](https://github.com/GonnaFlyMethod/fb-traffic-resolver/blob/main/LICENSE) file for 
+details.
