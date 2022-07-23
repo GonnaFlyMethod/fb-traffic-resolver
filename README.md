@@ -47,14 +47,10 @@ fetch("/api/locations",
 ```
 
 Alan specifies ports 80:80 for Docker container with
-resolver and build folder and runs the whole app with docker-compose.
-As he goes to `http://localhost` he gets html, css, js code and other 
-files from build folder.
-
-Then, Alan goes to
-`http://localhost/locations` and there he sees static files but the js code will call
-`/api/locations` and the final url will be `http://localhost/api/locations` this request goes to 
-traffic resolver that resolves the request to the container with backend API.
+resolver and build folder. He runs the whole app with `docker compose up --build`.
+Then, Alan goes to `http://localhost/locations`, he sees amazing frontend page with html, css and js.
+The js code calls `/api/locations` and the final url is `http://localhost/api/locations`. This request goes to 
+traffic resolver that resolves traffic to the container with backend API.
 Backend API handles the request: retrieving locations from db, for instance.
 And then, sends response back to the traffic resolver. After this, traffic resolver sends
 locations to the client (js code in browser), so there will be a data about locations on frontend.
