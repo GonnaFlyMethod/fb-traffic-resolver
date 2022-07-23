@@ -2,7 +2,7 @@
 ![fb-traffic resolver logo](./media/logo.png)
 
 * Logo by [sonieijka](https://github.com/sonieijka)
-* Initial idea for FB Traffic Resolver [pantafive](https://github.com/pantafive)
+* Initial idea for FB Traffic Resolver by [pantafive](https://github.com/pantafive)
 
 # 📓 About
 FB (frontend and backend) traffic resolver is a simple program that
