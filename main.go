@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/GonnaFlyMethod/fb-traffic-resolver/internal"
 	"net/http"
 	"net/url"
 	"os"
-	"sccsmanager/resolver/internal"
 	"strconv"
 	"time"
 
