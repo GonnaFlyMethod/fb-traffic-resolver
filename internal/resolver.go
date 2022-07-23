@@ -83,8 +83,6 @@ func NewTrafficResolver(addressOfAPI *url.URL, prefixOfAPIInPath, buildFolderPat
 func (tr *TrafficResolver) Resolve(res http.ResponseWriter, req *http.Request) {
 	switch {
 	case strings.HasPrefix(req.URL.Path, tr.prefixOfAPIInPath):
-		log.Info().Msg("resolving traffic to API...")
-
 		req.URL.Host = tr.addressOfAPI.Host
 		req.URL.Scheme = tr.addressOfAPI.Scheme
 		req.Header.Set("X-Forwarded-Host", req.Header.Get("Host"))
@@ -92,7 +90,6 @@ func (tr *TrafficResolver) Resolve(res http.ResponseWriter, req *http.Request) {
 
 		tr.proxyForRequestsToAPI.ServeHTTP(res, req)
 	default:
-		log.Info().Msg("resolving traffic to local static files...")
 		f := tr.determineWhichFileToReturn(req)
 
 		res.Header().Set("Content-Type", f.contentType)
