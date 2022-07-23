@@ -1,5 +1,5 @@
 # FB TRAFFIC RESOLVER
-![fb-traffic resolver logo](./media/logo.png)
+<img align="right" src="./media/logo.png">
 
 * Logo by [sonieijka](https://github.com/sonieijka)
 * Initial idea for FB Traffic Resolver by [pantafive](https://github.com/pantafive)
