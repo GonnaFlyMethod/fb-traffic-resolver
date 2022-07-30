@@ -17,23 +17,37 @@ jobs:
         with:
           go-version: 1.18
 
-      - name: Build
+      - name: Go Build
         run: go build -v ./...
 
-      - name: Test
+      - name: Go Test
         run: go test -v ./...
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
+      - name: Log In To Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build And Push
-        uses: docker/build-push-action@v3
+      - name: Log In To The Container Registry of GitHub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: |
+            gonnaflymethod/fb-traffic-resolver
+            ghcr.io/${{ github.repository }}
+
+      - name: Build And Push Docker Images
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
           push: true
-          tags: gonnaflymethod/fb-traffic-resolver:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
