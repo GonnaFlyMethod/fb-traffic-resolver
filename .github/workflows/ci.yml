@@ -7,7 +7,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -24,11 +23,10 @@ jobs:
       - name: Test
         run: go test -v ./...
 
-      - id: docker-publish
-        uses: bitovi/github-actions-docker-publish@1
+      - name: Build And Push
+        uses: docker/build-push-action@v3
         with:
-          image_tag: latest
-          org_name: gonnaflymethod
-          repo_name: fb-traffic-resolver
-          docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          push: true
+          tags: gonnaflymethod/fb-traffic-resolver:latest
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
