@@ -41,5 +41,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: gonnaflymethod/fb-traffic-resolver:latest
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
