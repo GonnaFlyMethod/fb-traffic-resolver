@@ -1,4 +1,4 @@
-name: Container_registries
+name: registries
 
 on:
   push:
