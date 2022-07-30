@@ -1,8 +1,8 @@
 name: Registries
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ "main" ]
 
 jobs:
   push_container_to_registries:
@@ -33,7 +33,7 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: |
-            my-docker-hub-namespace/my-docker-hub-repository
+            gonnaflymethod/fb-traffic-resolver
             ghcr.io/${{ github.repository }}
 
       - name: Build and push Docker images
@@ -41,5 +41,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: gonnaflymethod/fb-traffic-resolver:latest
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
