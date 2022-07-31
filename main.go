@@ -27,8 +27,6 @@ func pingAPI(apiAddress string) {
 		log.Fatal().Err(err).Send()
 	}
 
-	const timeToSleep = 3 * time.Second
-
 	for i := 0; i < 5; i++ {
 		log.Info().Msgf("trying to ping %s, attempt %d", apiAddress, i+1)
 
@@ -36,7 +34,7 @@ func pingAPI(apiAddress string) {
 		if err != nil {
 			log.Warn().Err(err).Send()
 
-			time.Sleep(timeToSleep)
+			time.Sleep(3 * time.Second)
 			continue
 		}
 
@@ -44,13 +42,8 @@ func pingAPI(apiAddress string) {
 			log.Fatal().Msg("can't close response body")
 		}
 
-		if response.StatusCode == http.StatusOK {
-			log.Info().Msg("API is alive")
-			return
-		}
-
-		log.Warn().Msgf("response status code from api is not 2xx, actual response status code: %d", response.StatusCode)
-		time.Sleep(timeToSleep)
+		log.Info().Msg("API is alive")
+		return
 	}
 
 	log.Fatal().Msgf("can't connect to %s", apiAddress)
