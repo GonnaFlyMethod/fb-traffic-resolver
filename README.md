@@ -73,3 +73,4 @@ details.
 The favicon(internal/testdata/build/favicon.ico) was taken from [www.flaticon.com](https://www.flaticon.com/free-icon/google_2913965).
 
 [Other google icons on flaticon](https://www.flaticon.com/free-icons/google)
+
