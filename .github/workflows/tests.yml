@@ -22,3 +22,4 @@ jobs:
 
       - name: Go Test
         run: go test -v ./...
+
