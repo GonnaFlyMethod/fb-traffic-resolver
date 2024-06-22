@@ -5,7 +5,7 @@ WORKDIR /build
 
 RUN go mod download && go build -o start_resolver main.go
 
-FROM alpine:3.16 as base
+FROM alpine:3.17 as base
 
 COPY --from=build /build/start_resolver .
 CMD ["./start_resolver"]
